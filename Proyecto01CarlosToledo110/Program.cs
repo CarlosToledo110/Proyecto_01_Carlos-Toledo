@@ -1,6 +1,7 @@
 ﻿using System.Net.Http.Headers;
 
-bool reglatecnica = true; string impacto = ""; int totalevaluados = 0;
+bool reglatecnica = true; string impacto = ""; int impactoalto = 0; int impactomedio = 0; int impactobajo = 0; 
+int totalevaluados = 0; int totalpublicados = 0;int totalrechazados = 0; int totalenrevision = 0;
 
 int opcionmenuprincipal; string tipocontenido; int duracioncontenido; string clasificacion; int horaprogramada; string produccionobra;
 do
@@ -20,12 +21,16 @@ do
             
                 Console.WriteLine("Ingrese el típo de contenido (Película, serie documental, evento en vivo): ");
                 tipocontenido = Console.ReadLine();
+
                 Console.WriteLine("Ingrese su duración (en minutos): ");
                 duracioncontenido = int.Parse(Console.ReadLine());
+
                 Console.WriteLine("Ingrese su clasificación: ");
                 clasificacion = (Console.ReadLine());
+
                 Console.WriteLine("Ingrese la hora programada de la función (0-23): ");
                 horaprogramada = int.Parse(Console.ReadLine());
+
                 Console.WriteLine("Ingrese el nivel de producción de la obra: ");
                 produccionobra = (Console.ReadLine());
 
@@ -65,14 +70,17 @@ do
                 if ((produccionobra == "Alta" || produccionobra == "alta" || produccionobra == "ALTA" && duracioncontenido >= 120) || (horaprogramada >= 20 && horaprogramada <= 23))
                 {
                     impacto = "Impacto Alto";
+                impactoalto++;
                 }
                 if (produccionobra == "media" || produccionobra == "Media" || produccionobra == "MEDIA" && duracioncontenido >= 60 && duracioncontenido <= 120)
                 {
                     impacto = "Impacto Medio";
+                impactomedio++;
                 }
                 if (produccionobra == "baja" || produccionobra == "Baja" || produccionobra == "BAJA" && duracioncontenido <= 60)
                 {
                     impacto = "Impacto Bajo";
+                impactobajo++;
                 }
 
                 Console.WriteLine($"Impacto: {impacto}");
@@ -81,18 +89,22 @@ do
                 if (reglatecnica && impacto == "Impacto Bajo" || impacto == "Impacto Medio")
                 {
                     Console.WriteLine("Publicar");
+                totalpublicados++;
                 }
                 if (reglatecnica != false)
                 {
                     Console.WriteLine("Publicar con ajustes");
+                totalpublicados++;
                 }
                 if (reglatecnica != false && impacto == "Impacto Alto")
                 {
                     Console.WriteLine("Enviar a Revisión");
+                totalenrevision++;
                 }
                 if (!reglatecnica)
                 {
                     Console.WriteLine("Rechazar");
+                totalrechazados++;
                 }
             totalevaluados++;
                 break;
@@ -112,15 +124,40 @@ do
                 break;
             
         case 3:
-            
+            string impactpred = "";
+            if (impactoalto > impactomedio && impactoalto > impactobajo)
+            {
+                impactpred = "impacto Alto";
+            }
+            else if (impactomedio > impactoalto && impactomedio >= impactobajo)
+            {
+                impactpred = "Impacto Medio";
+            }
+            else
+            {
+                impactpred = "Impacto Bajo";
+            }
+
+            double porcentajeaprob (int totalpublicados, int totalevaluados)
+            {
+                return totalpublicados / totalevaluados * 100;
+            }
+            double resultaprob = porcentajeaprob(totalpublicados, totalevaluados);
+
+            Console.WriteLine("----ESTADÍSTICAS DE LA SESIÓN----");
+            Console.WriteLine($"Contenidos evaluados Totales: {totalevaluados}");
+            Console.WriteLine($"Publicados totales:{totalpublicados}");
+            Console.WriteLine($"Rechazados totales: {totalrechazados} ");
+            Console.WriteLine($"Contenidos en revisión: {totalenrevision}");
+            Console.WriteLine($"El impacto predominante es: {impactpred}");
+            Console.WriteLine($"El porcentaje de aprobación de los contenido ses del {resultaprob}%");
                 break;
             
         case 4:
-            
+           
                 break;
             
         case 5:
-            
                 break;
             
         default:
