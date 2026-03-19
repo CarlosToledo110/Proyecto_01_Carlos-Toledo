@@ -1,9 +1,37 @@
 ﻿using System.Net.Http.Headers;
+using System.Numerics;
+static void Main()
+{ }
 
 bool reglatecnica = true; string impacto = ""; int impactoalto = 0; int impactomedio = 0; int impactobajo = 0; 
 int totalevaluados = 0; int totalpublicados = 0;int totalrechazados = 0; int totalenrevision = 0;
 
 int opcionmenuprincipal; string tipocontenido; int duracioncontenido; string clasificacion; int horaprogramada; string produccionobra;
+//IMPACTO PREDOMINANTE (Case 3)
+string impactpred = "";
+if (impactoalto > impactomedio && impactoalto > impactobajo)
+{
+impactpred = "impacto Alto";
+}
+else if (impactomedio > impactoalto && impactomedio >= impactobajo)
+{
+impactpred = "Impacto Medio";
+}
+else
+{
+impactpred = "Impacto Bajo";
+}
+//PORCENTAJE DE APROBACIÓN (Case 3)
+double porcentajeaprob(int totalpublicados, int totalevaluados)
+{
+if (totalevaluados == 0)
+{
+return 0.0;
+}
+return (double)totalpublicados / totalevaluados * 100.0;
+}
+double resultaprob = porcentajeaprob(totalpublicados, totalevaluados);
+
 do
 {
     Console.WriteLine("Bienvenido al sistema de la plataforma de streaming, elija una opción");
@@ -124,25 +152,6 @@ do
                 break;
             
         case 3:
-            string impactpred = "";
-            if (impactoalto > impactomedio && impactoalto > impactobajo)
-            {
-                impactpred = "impacto Alto";
-            }
-            else if (impactomedio > impactoalto && impactomedio >= impactobajo)
-            {
-                impactpred = "Impacto Medio";
-            }
-            else
-            {
-                impactpred = "Impacto Bajo";
-            }
-
-            double porcentajeaprob (int totalpublicados, int totalevaluados)
-            {
-                return totalpublicados / totalevaluados * 100;
-            }
-            double resultaprob = porcentajeaprob(totalpublicados, totalevaluados);
 
             Console.WriteLine("----ESTADÍSTICAS DE LA SESIÓN----");
             Console.WriteLine($"Contenidos evaluados Totales: {totalevaluados}");
@@ -154,11 +163,26 @@ do
                 break;
             
         case 4:
-           
+            totalevaluados = 0;        impactoalto = 0;
+            totalpublicados = 0;       impactomedio = 0;
+            totalrechazados = 0;       impactobajo = 0;
+            totalenrevision = 0;
+
+            Console.WriteLine("Estadísticas Reiniciadas");
+            
                 break;
             
         case 5:
-                break;
+            Console.WriteLine("RESUMEN FINAL DEL SISTEMA");
+            Console.WriteLine($"Contenidos evaluados Totales: {totalevaluados}");
+            Console.WriteLine($"Publicados totales:{totalpublicados}");
+            Console.WriteLine($"Rechazados totales: {totalrechazados} ");
+            Console.WriteLine($"Contenidos en revisión: {totalenrevision}");
+            Console.WriteLine($"El impacto predominante es: {impactpred}");
+            Console.WriteLine($"El porcentaje de aprobación de los contenido ses del {resultaprob}%");
+
+            Console.WriteLine("Saliendo... Gracias por hacer Uso del Sistema");
+            break;
             
         default:
             Console.WriteLine("ERROR: Opción no disponible/fuera del rango, ingrese una opción válida");
