@@ -1,6 +1,6 @@
 ﻿using System.Net.Http.Headers;
 
-bool reglatecnica = true; string impacto = "";
+bool reglatecnica = true; string impacto = ""; int totalevaluados = 0;
 
 int opcionmenuprincipal; string tipocontenido; int duracioncontenido; string clasificacion; int horaprogramada; string produccionobra;
 do
@@ -17,7 +17,7 @@ do
     switch (opcionmenuprincipal)
     {
         case 1:
-            {
+            
                 Console.WriteLine("Ingrese el típo de contenido (Película, serie documental, evento en vivo): ");
                 tipocontenido = Console.ReadLine();
                 Console.WriteLine("Ingrese su duración (en minutos): ");
@@ -47,7 +47,7 @@ do
                 }
 
                 //Reglas de duración por tipo 
-                if (duracioncontenido < 2 || duracioncontenido > 500)
+                if (duracioncontenido < 2 || duracioncontenido > 360)
                 {
                     reglatecnica = false;
                 }
@@ -94,28 +94,38 @@ do
                 {
                     Console.WriteLine("Rechazar");
                 }
-
+            totalevaluados++;
                 break;
-            }
+            
         case 2:
-            {
+            Console.WriteLine("----REGLAS DEL SISTEMA----");
+            Console.WriteLine("-Horarios válidos: 0-23");
+            Console.WriteLine("-Los límites de duración del contenido son de 2 (mínimo) a 360 (máximo) minutos");
+            Console.WriteLine("-Si el horario es de 6 a 22 horas, el contenido tiene opción a ser +13, de lo contrario solo puede ser +18");
+            Console.WriteLine("-Si la producción del contenido es alta y su duración es de más de 120 minutos, entonces tiene un impacto alto");
+            Console.WriteLine("-Si la producción del contenido es media y su duración es de mas de 60 minutos, entonces su impacto será medio");
+            Console.WriteLine("-En otros casos su impacto será bajo");
+            Console.WriteLine("-Si el contenido tiene un impacto alto entonces será enviado a revisión");
+            Console.WriteLine("-Si el contenido tiene impacto medio entonces se publicará ocn ajustes");
+            Console.WriteLine("-El contenido con impacto bajo será publicado directamente");
+            Console.WriteLine("-Si el contenido incumple con alguna regla técnica, entonces será inmediatamente rechazado");
                 break;
-            }
+            
         case 3:
-            {
+            
                 break;
-            }
+            
         case 4:
-            {
+            
                 break;
-            }
+            
         case 5:
-            {
+            
                 break;
-            }
+            
         default:
-            {
+            Console.WriteLine("ERROR: Opción no disponible/fuera del rango, ingrese una opción válida");
                 break;
-            }
+            
     }
 } while (opcionmenuprincipal != 5);
