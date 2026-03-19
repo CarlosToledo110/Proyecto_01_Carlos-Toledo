@@ -1,6 +1,7 @@
 ﻿using System.Net.Http.Headers;
 
-bool reglatecnica = true; 
+bool reglatecnica = true; string impacto = "";
+
 int opcionmenuprincipal; string tipocontenido; int duracioncontenido; string clasificacion; int horaprogramada; string produccionobra;
 do
 {
@@ -59,6 +60,39 @@ do
                 else if (produccionobra == "media" || produccionobra == "Media" || produccionobra == "MEDIA" || produccionobra == "Alta" || produccionobra == "alta" || produccionobra == "ALTA")
                 {
                     Console.WriteLine("Válida para cualquier clasificación");
+                }
+                //Clasificación de Impacto
+                if ((produccionobra == "Alta" || produccionobra == "alta" || produccionobra == "ALTA" && duracioncontenido >= 120) || (horaprogramada >= 20 && horaprogramada <= 23))
+                {
+                    impacto = "Impacto Alto";
+                }
+                if (produccionobra == "media" || produccionobra == "Media" || produccionobra == "MEDIA" && duracioncontenido >= 60 && duracioncontenido <= 120)
+                {
+                    impacto = "Impacto Medio";
+                }
+                if (produccionobra == "baja" || produccionobra == "Baja" || produccionobra == "BAJA" && duracioncontenido <= 60)
+                {
+                    impacto = "Impacto Bajo";
+                }
+
+                Console.WriteLine($"Impacto: {impacto}");
+
+                //Decisión final
+                if (reglatecnica && impacto == "Impacto Bajo" || impacto == "Impacto Medio")
+                {
+                    Console.WriteLine("Publicar");
+                }
+                if (reglatecnica != false)
+                {
+                    Console.WriteLine("Publicar con ajustes");
+                }
+                if (reglatecnica != false && impacto == "Impacto Alto")
+                {
+                    Console.WriteLine("Enviar a Revisión");
+                }
+                if (!reglatecnica)
+                {
+                    Console.WriteLine("Rechazar");
                 }
 
                 break;
