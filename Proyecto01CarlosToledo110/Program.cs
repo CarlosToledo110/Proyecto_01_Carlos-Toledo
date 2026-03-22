@@ -35,7 +35,7 @@ double resultaprob = porcentajeaprob(totalpublicados, totalevaluados);
 do
 {
     Console.Clear();
-    Console.WriteLine("Bienvenido al sistema de la plataforma de streaming, elija una opción");
+    Console.WriteLine("---Bienvenido al sistema de la Plataforma de Streaming, Elija una Opción---");
     Console.WriteLine("1. Evaluar un nuevo contenido");
     Console.WriteLine("2. Mostrar reglas del sistema");
     Console.WriteLine("3. Mostrar estadísticas de la sesión");
@@ -54,7 +54,7 @@ do
         switch (opcionmenuprincipal)
         {
             case 1:
-
+                Console.Clear();
                 Console.WriteLine("Ingrese el típo de contenido (Película, serie documental, evento en vivo): ");
                 tipocontenido = Console.ReadLine();
 
@@ -143,27 +143,35 @@ do
                 //Decisión final
                 if (!reglatecnica)
                 {
-                    Console.WriteLine("Rechazar, No cumple con una o más reglas técnicas");
+                    Console.WriteLine("Decisión final: Rechazar, No cumple con una o más reglas técnicas");
                     totalrechazados++;
                 }
                 else if (impacto == "Impacto Alto")
                 {
-                    Console.WriteLine("Enviar a Revisión");
+                    Console.WriteLine("Decisión final: Enviar a Revisión");
                     totalenrevision++;
                 }
                 else if (impacto == "Impacto Medio")
                 {
-                    Console.WriteLine("Publicar con ajustes");
+                    Console.WriteLine("Decisión final: Publicar con ajustes");
                     totalpublicados++;
                 }
                 else
                 {
-                    Console.WriteLine("Publicar");
+                    Console.WriteLine("Decisión final: Publicar");
                     totalpublicados++;
                 }
+                Console.WriteLine("---Presione cualquier tecla para volver al menú---");
+
                 break;
 
             case 2:
+                Console.Clear();
+                for (int i = 1; i <= 11; i++)
+                {
+                    Console.WriteLine($"Cargando regla #{i}...");
+                }
+                Console.Clear();
                 Console.WriteLine("----REGLAS DEL SISTEMA----");
                 Console.WriteLine("-Horarios válidos: 0-23");
                 Console.WriteLine("-Los límites de duración del contenido son de 2 (mínimo) a 360 (máximo) minutos");
@@ -175,10 +183,11 @@ do
                 Console.WriteLine("-Si el contenido tiene impacto medio entonces se publicará con ajustes");
                 Console.WriteLine("-El contenido con impacto bajo será publicado directamente");
                 Console.WriteLine("-Si el contenido incumple con alguna regla técnica, entonces será inmediatamente rechazado");
+                Console.WriteLine("---Presione cualquier tecla para volver al menú---");
                 break;
 
             case 3:
-
+                Console.Clear();
                 Console.WriteLine("----ESTADÍSTICAS DE LA SESIÓN----");
                 Console.WriteLine($"Contenidos evaluados Totales: {totalevaluados}");
                 Console.WriteLine($"Publicados totales:{totalpublicados}");
@@ -186,6 +195,7 @@ do
                 Console.WriteLine($"Contenidos en revisión: {totalenrevision}");
                 Console.WriteLine($"El impacto predominante es: {impactpred}");
                 Console.WriteLine($"El porcentaje de aprobación de los contenidos es del {resultaprob}%");
+                Console.WriteLine("---Presione cualquier tecla para volver al menú---");
                 break;
 
             case 4:
@@ -195,6 +205,8 @@ do
                 totalenrevision = 0;
 
                 Console.WriteLine("Estadísticas Reiniciadas");
+                Console.WriteLine("---Presione cualquier tecla para volver al menú---");
+
 
                 break;
 
@@ -215,6 +227,7 @@ do
                 break;
 
         }
+
     }
     Console.ReadKey();
 
