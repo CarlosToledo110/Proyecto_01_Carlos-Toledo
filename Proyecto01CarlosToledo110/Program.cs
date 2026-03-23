@@ -114,7 +114,7 @@ do
                 //Reglas de producción
                 if (produccionobra == "baja" || produccionobra == "Baja" || produccionobra == "BAJA")
                 {
-                    Console.WriteLine("Solo válida para todo público o +13");
+                    Console.WriteLine("Válida para todo público o +13");
                 }
                 else if (produccionobra == "media" || produccionobra == "Media" || produccionobra == "MEDIA" || produccionobra == "Alta" || produccionobra == "alta" || produccionobra == "ALTA")
                 {
@@ -162,7 +162,7 @@ do
                     totalpublicados++;
                 }
                 Console.WriteLine("---Presione cualquier tecla para volver al menú---");
-
+                totalevaluados++;
                 break;
 
             case 2:
