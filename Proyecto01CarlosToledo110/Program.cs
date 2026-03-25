@@ -24,14 +24,14 @@ impactpred = "Impacto Bajo";
 //PORCENTAJE DE APROBACIÓN (Case 3)
 double porcentajeaprob(int totalpublicados, int totalevaluados)
 {
-if (totalevaluados == 0)
-{
-return 0.0;
-}
-return (double)totalpublicados / totalevaluados * 100.0;
-}
-double resultaprob = porcentajeaprob(totalpublicados, totalevaluados);
+    if (totalevaluados == 0)
+    {
+        return 0.0;
+    }
 
+    return (double)totalpublicados / totalevaluados * 100.0;
+}
+double resultaprob = 0.0;
 do
 {
     Console.Clear();
@@ -54,6 +54,7 @@ do
         switch (opcionmenuprincipal)
         {
             case 1:
+                reglatecnica = true; //Reset necesario de regla técnica
                 Console.Clear();
                 Console.WriteLine("Ingrese el típo de contenido (Película, serie documental, evento en vivo): ");
                 tipocontenido = Console.ReadLine();
@@ -122,17 +123,17 @@ do
                 }
 
                 //Clasificación de Impacto
-                if ((produccionobra == "Alta" || produccionobra == "alta" || produccionobra == "ALTA" && duracioncontenido >= 120) || (horaprogramada >= 20 && horaprogramada <= 23))
+                if ((produccionobra == "Alta" || produccionobra == "alta" || produccionobra == "ALTO" || produccionobra == "Alto" || produccionobra == "alto" || produccionobra == "ALTA" && duracioncontenido >= 120) || (horaprogramada >= 20 && horaprogramada <= 23))
                 {
                     impacto = "Impacto Alto";
                     impactoalto++;
                 }
-                if (produccionobra == "media" || produccionobra == "Media" || produccionobra == "MEDIA" && duracioncontenido >= 60 && duracioncontenido <= 120)
+                if (produccionobra == "media" || produccionobra == "Media" || produccionobra == "MEDIO" || produccionobra == "medio" || produccionobra == "Medio" || produccionobra == "MEDIA" && duracioncontenido >= 60 && duracioncontenido <= 120)
                 {
                     impacto = "Impacto Medio";
                     impactomedio++;
                 }
-                if (produccionobra == "baja" || produccionobra == "Baja" || produccionobra == "BAJA" && duracioncontenido <= 60)
+                if (produccionobra == "baja" || produccionobra == "Baja" || produccionobra == "BAJA" || produccionobra == "bajo" || produccionobra == "Bajo" || produccionobra == "BAJA" && duracioncontenido <= 60)
                 {
                     impacto = "Impacto Bajo";
                     impactobajo++;
@@ -156,7 +157,7 @@ do
                     Console.WriteLine("Decisión final: Publicar con ajustes");
                     totalpublicados++;
                 }
-                else
+                else if (impacto == "Impacto Bajo")
                 {
                     Console.WriteLine("Decisión final: Publicar");
                     totalpublicados++;
@@ -187,6 +188,8 @@ do
                 break;
 
             case 3:
+                resultaprob = porcentajeaprob(totalpublicados, totalevaluados);
+
                 Console.Clear();
                 Console.WriteLine("----ESTADÍSTICAS DE LA SESIÓN----");
                 Console.WriteLine($"Contenidos evaluados Totales: {totalevaluados}");
@@ -211,6 +214,7 @@ do
                 break;
 
             case 5:
+
                 Console.WriteLine("RESUMEN FINAL DEL SISTEMA");
                 Console.WriteLine($"Contenidos evaluados Totales: {totalevaluados}");
                 Console.WriteLine($"Publicados totales:{totalpublicados}");
